@@ -76,7 +76,7 @@ def length(v):
 def versor(v):
     return tuple(map(lambda x: x/(length(v)), v))
 
-puppy = Model("Ram_Skull_Scan.obj")
+puppy = Model("french_bulldog.obj")
 def render_model(model):
     global w,h,screen
 
@@ -87,7 +87,7 @@ def render_model(model):
     for p in points:
         x,y,z = p
         xp,yp = project(x,y,z)
-        xp,yp = (xp+1)*(w/2), ((-yp)+1)*(h/2)
+        xp,yp = (-xp+1)/2*w, (-yp+1)/2*h
         pp.append((xp,yp))
         #pg.draw.circle(screen, (255,0,0), (xp,yp), 1)
 
@@ -129,11 +129,11 @@ while True:
                 posz -= 1
     screen.fill((255,255,255))
     new_model = deepcopy(puppy)
-    new_model.rotate_z(pi)
+    #new_model.rotate_z(pi)
     new_model.rotate_y(angle)
-    new_model.translate((0,0,2))
+    new_model.translate((0,0,20))
 
-    new_model.translate((posx, posy, posz))
+    new_model.translate((posx, -posy, -posz))
     render_model(new_model)
     angle += 0.01
     pg.display.flip()
